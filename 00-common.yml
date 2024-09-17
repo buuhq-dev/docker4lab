@@ -1,0 +1,48 @@
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    #restart: unless-stopped
+    networks:
+      - net-data
+    ports:
+      - 9080:80
+      - 9443:443
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/ssl:/root/ssl/official
+      - ./nginx/log:/var/log/nginx
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    container_name: adminer
+    networks:
+      - net-data
+    ports:
+      - 9081:8080
+
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    #restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: huynhquocbuu@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+       - ./pgadmin4:/var/lib/pgadmin
+    ports:
+      - 9082:80
+    networks:
+      - net-data
+
+networks:
+  net-data:
+    name: net-data
+    #external: true
+    driver: bridge
+  net-app:
+    name: net-app
+    # external: true
+    driver: bridge

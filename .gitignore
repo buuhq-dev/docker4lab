@@ -1,0 +1,16 @@
+.env
+db-samples/*
+nginx
+mysqldb
+mariadb
+pgadmin4
+postgres
+mongodb
+rabbitmq
+redis
+redisinsight
+wiremock
+
+!db-samples/mongo-sample-dataset/script.sh
+!db-samples/mysql-sample-data/mysql-import-script.sh
+!db-samples/postgres-sample-data/postgres-import-script.sh

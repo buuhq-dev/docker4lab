@@ -1,0 +1,21 @@
+services:
+  postgresdb:
+    image: postgres
+    #restart: unless-stopped
+    container_name: postgresdb
+    environment:
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    networks:
+      - net-data
+    ports:
+      - 5432:5432
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge

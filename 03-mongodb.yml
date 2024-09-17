@@ -1,0 +1,42 @@
+services:
+  mongodb:
+    image: mongo
+    #restart: unless-stopped
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: test
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      # seeding scripts
+      - ./mongodb/mongo-entrypoint-initdb:/docker-entrypoint-initdb.d
+      # named volumes
+      - ./mongodb/db:/data/db
+      - ./mongodb/configdb:/data/configdb
+    networks:
+      - net-data
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    #restart: unless-stopped
+    ports:
+      - 9083:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
+      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - mongodb
+    networks:
+      - net-data
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge
