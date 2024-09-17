@@ -1,0 +1,35 @@
+# Use AdoptOpenJDK base image for JDK 8
+FROM adoptopenjdk:8-jre-hotspot
+
+# Set environment variables
+ENV APACHEDS_VERSION=2.0.0.AM27
+ENV JAVA_HOME=/opt/java/openjdk
+ENV APACHEDS_HOME=/opt/apacheds-${APACHEDS_VERSION}
+
+# Install required packages
+RUN apt-get update && apt-get install -y \
+    tar \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the ApacheDS tar.gz file to the container
+COPY apacheds-2.0.0.AM27.tar.gz /opt/
+
+# Unpack ApacheDS and handle the actual extracted folder name
+RUN tar -xvzf /opt/apacheds-2.0.0.AM27.tar.gz -C /opt/ && \
+    rm /opt/apacheds-2.0.0.AM27.tar.gz && \
+    mv /opt/apacheds-2.0.0.AM28-SNAPSHOT /opt/apacheds-${APACHEDS_VERSION}
+
+# Expose ports for LDAP (10389), LDAPS (10636), and Kerberos (88)
+EXPOSE 10389 10636 88
+
+# Set working directory
+WORKDIR ${APACHEDS_HOME}
+
+# Create a script to run ApacheDS as an entrypoint
+RUN echo '#!/bin/bash\n\
+${APACHEDS_HOME}/bin/apacheds start default && tail -f ${APACHEDS_HOME}/logs/apacheds.log' > /opt/start-apacheds.sh && \
+    chmod +x /opt/start-apacheds.sh
+
+# Set the entrypoint to start ApacheDS
+ENTRYPOINT ["/opt/start-apacheds.sh"]

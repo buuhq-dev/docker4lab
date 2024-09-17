@@ -11,6 +11,8 @@ redis
 redisinsight
 wiremock
 
+openldap
+
 !db-samples/mongo-sample-dataset/script.sh
 !db-samples/mysql-sample-data/mysql-import-script.sh
 !db-samples/postgres-sample-data/postgres-import-script.sh
