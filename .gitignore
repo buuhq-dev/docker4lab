@@ -11,6 +11,7 @@ redis
 redisinsight
 wiremock
 
+mssqldb
 openldap
 
 !db-samples/mongo-sample-dataset/script.sh
