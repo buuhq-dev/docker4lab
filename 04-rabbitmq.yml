@@ -1,14 +1,27 @@
 services:
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:3-management
     #restart: unless-stopped
     container_name: rabbitmq
     ports:
         - 5672:5672
         - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      # RABBITMQ_ERLANG_COOKIE: 'SWQOKODSQALRPCLNMEQG'
+      # RABBITMQ_DEFAULT_VHOST: '/'
     volumes:
         - ./rabbitmq/data:/var/lib/rabbitmq
         - ./rabbitmq/log:/var/log/rabbitmq
+        - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    # command: >
+    #   bash -c "
+    #     rabbitmq-server &
+    #     sleep 10 &&
+    #     rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@$(hostname -s).pid &&
+    #     rabbitmqadmin import /etc/rabbitmq/definitions.json &&
+    #     fg"
     networks:
         - net-data
 
