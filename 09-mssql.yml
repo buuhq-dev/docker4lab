@@ -1,0 +1,23 @@
+services:
+  mssqldb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: unless-stopped
+    container_name: mssqldb
+    #hostname: mssql
+    environment:
+      SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
+    volumes:
+      - ./mssqldb:/var/opt/mssql
+      #- ./mssqldb/log/:/var/opt/mssql/log/
+    networks:
+      - net-data
+    ports:
+      - "1433:1433"
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge
