@@ -1,0 +1,23 @@
+services:
+  gitlab-ce-5.2:
+    image: gitlab/gitlab-ce:17.5.2-ce.0
+    container_name: gitlab-ce-5.2
+    #restart: unless-stopped
+    #environment:
+      #GITLAB_OMNIBUS_CONFIG: |
+        #gitlab_rails['initial_root_password'] = '${GITLAB_PASSWORD}'
+    volumes:
+      - ./gitlab-ce-5.2/config:/etc/gitlab
+      - ./gitlab-ce-5.2/logs:/var/log/gitlab
+      - ./gitlab-ce-5.2/data:/var/opt/gitlab
+    networks:
+      - net-data
+    ports:
+      - 9086:80
+      - 6443:443
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge

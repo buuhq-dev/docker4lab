@@ -13,6 +13,8 @@ wiremock
 
 mssqldb
 openldap
+gitlab-ce-5.2
+minio
 
 !db-samples/mongo-sample-dataset/script.sh
 !db-samples/mysql-sample-data/mysql-import-script.sh
