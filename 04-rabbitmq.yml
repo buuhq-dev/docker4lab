@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.13.7-management
     #restart: unless-stopped
     container_name: rabbitmq
     ports:

@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis
+    image: redis:7.4.1
     container_name: redis
     #restart: unless-stopped
     volumes:
@@ -11,7 +11,7 @@ services:
       - 6379:6379
 
   redisinsight:
-    image: redislabs/redisinsight
+    image: redislabs/redisinsight:2.64.1
     container_name: redisinsight
     #restart: unless-stopped
     networks:

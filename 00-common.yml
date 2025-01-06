@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:stable-alpine
+    image: nginx:1.27.3
     container_name: nginx
     #restart: unless-stopped
     networks:
@@ -15,7 +15,7 @@ services:
       - ./nginx/log:/var/log/nginx
 
   adminer:
-    image: adminer
+    image: adminer:4.8.1-standalone
     restart: unless-stopped
     container_name: adminer
     networks:
@@ -25,7 +25,7 @@ services:
 
   pgadmin4:
     container_name: pgadmin4
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:8.14
     #restart: unless-stopped
     environment:
       PGADMIN_DEFAULT_EMAIL: huynhquocbuu@gmail.com
@@ -40,7 +40,7 @@ services:
 networks:
   net-data:
     name: net-data
-    #external: true
+    # external: true
     driver: bridge
   net-app:
     name: net-app

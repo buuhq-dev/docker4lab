@@ -1,6 +1,6 @@
 services:
   mongodb:
-    image: mongo
+    image: mongo:7.0.16-jammy
     #restart: unless-stopped
     container_name: mongodb
     ports:
@@ -19,7 +19,7 @@ services:
       - net-data
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1.0.2-18-alpine3.18
     container_name: mongo-express
     #restart: unless-stopped
     ports:

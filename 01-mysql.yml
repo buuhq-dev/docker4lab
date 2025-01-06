@@ -1,6 +1,6 @@
 services:
   mysqldb:
-    image: mysql
+    image: mysql:8.0.40-debian
     #restart: unless-stopped
     container_name: mysqldb
     volumes:
@@ -11,19 +11,6 @@ services:
       - net-data
     ports:
       - 3306:3306
-
-  mariadb:
-    image: mariadb
-    #restart: unless-stopped
-    container_name: mariadb
-    volumes:
-      - ./mariadb:/var/lib/mysql
-    environment: 
-      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
-    networks:
-      - net-data
-    ports:
-      - 3307:3306
 
 networks:
   net-data:

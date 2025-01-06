@@ -1,0 +1,19 @@
+services:
+  nexus3.75.1:
+    image: sonatype/nexus3:3.75.1
+    container_name: nexus3.75.1
+    restart: unless-stopped
+    volumes:
+      - ./nexus3/config:/nexus-data
+    networks:
+      - net-data
+    ports:
+      - 9087:8081
+      - 9088:9088
+      # - 9089:9089
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge

@@ -20,3 +20,16 @@ docker exec -it kafka /bin/kafka-console-producer --bootstrap-server kafka:9092 
 docker-compose logs kafka | grep -i started
 
 cn=admin,dc=lab,dc=dev
+
+
+docker exec -it nexus3.75.1 cat /nexus-data/admin.password
+
+new password nexus3: TpfBuuHQ@2025
+
+
+docker login localhost:9088 
+
+
+docker pull localhost:9089/mysql:8.0.40-debian
+
+docker pull localhost:9089/hello-world
