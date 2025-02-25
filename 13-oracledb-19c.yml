@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  oracledb19c:
+    image: oracle/database:19.3.0-ee
+    container_name: oracledb19c
+    restart: unless-stopped
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCLPDB1
+      ORACLE_PWD: ${DB_PASSWORD}  # Set this in a .env file OR replace with a strong password
+      ORACLE_CHARACTERSET: AL32UTF8
+    volumes:
+      - ./oracledb19c:/opt/oracle/oradata  # Persistent storage for database files
+    networks:
+      - net-data
+    ports:
+      - "1521:1521"   # Oracle Listener Port
+      - "5500:5500"   # Enterprise Manager Express
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge
