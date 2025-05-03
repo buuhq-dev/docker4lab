@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  tomcat:
+    image: tomcat:9-jdk8
+    container_name: tomcat9
+    ports:
+      - "9181:8080"
+    volumes:
+      # - ./tomcat9/webapps:/usr/local/tomcat/webapps
+      - ./tomcat9/webapps:/usr/local/tomcat/webapps-external
+      - ./tomcat9/conf/context.xml:/usr/local/tomcat/conf/context.xml
+    networks:
+      - net-data
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge
