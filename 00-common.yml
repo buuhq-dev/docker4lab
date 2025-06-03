@@ -1,18 +1,5 @@
 services:
-  nginx:
-    image: nginx:1.27.3
-    container_name: nginx
-    #restart: unless-stopped
-    networks:
-      - net-data
-    ports:
-      - 9080:80
-      - 9443:443
-    volumes:
-      - ./nginx/config:/etc/nginx/conf.d
-      - ./nginx/html:/usr/share/nginx/html
-      - ./nginx/ssl:/root/ssl/official
-      - ./nginx/log:/var/log/nginx
+  
 
   adminer:
     image: adminer:4.8.1-standalone
@@ -40,9 +27,9 @@ services:
 networks:
   net-data:
     name: net-data
-    # external: true
+    external: true
     driver: bridge
   net-app:
     name: net-app
-    # external: true
+    external: true
     driver: bridge

@@ -1,0 +1,24 @@
+services:
+  osticket:
+    image: my-osticket:1.17.6
+    container_name: osticket
+    restart: unless-stopped
+    # depends_on:
+    #   - mysqldb
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_DATABASE: osticket
+      MYSQL_USER: osticket
+      MYSQL_PASSWORD: osticket
+    volumes:
+      - ./osticket:/data
+    networks:
+      - net-data
+    ports:
+      - 9089:80
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge

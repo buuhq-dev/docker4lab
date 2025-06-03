@@ -33,3 +33,25 @@ docker login localhost:9088
 docker pull localhost:9089/mysql:8.0.40-debian
 
 docker pull localhost:9089/hello-world
+
+```shell
+cd /home/oracle/sql_import/
+for file in *.sql; do
+    echo "Executing $file..."
+    sqlplus sqlplus DIGI_LOS_OWNER/Password123@localhost:1521/PDB_DIGITAL_PLATFORM_SIT @$file
+done
+
+sqlplus sqlplus DIGI_LOS_OWNER/Password123@localhost:1521/PDB_DIGITAL_PLATFORM_SIT @ACT_GE_BYTEARRAY.sql
+```
+
+```bash
+for file in *.sql; do
+    echo "Running $file..."
+    sqlplus DIGI_LOS_OWNER/Password123@localhost:1521/PDB_DIGITAL_PLATFORM_SIT @$file
+done
+
+for file in *.sql; do
+    echo "Running $file..."
+    echo "EXIT" | sqlplus -s DIGI_LOS_OWNER/Password123@PDB_DIGITAL_PLATFORM_SIT @$file
+done
+```

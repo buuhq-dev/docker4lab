@@ -1,0 +1,25 @@
+services:
+  nginx:
+    image: nginx:1.27.3
+    container_name: nginx
+    #restart: unless-stopped
+    networks:
+      - net-data
+    ports:
+      - 9080:80
+      - 9443:443
+    volumes:
+    #   - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/html:/usr/share/nginx/html
+    #   - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+    #   - ./nginx/log:/var/log/nginx
+
+networks:
+  net-data:
+    name: net-data
+    external: true
+    driver: bridge
+  net-app:
+    name: net-app
+    external: true
+    driver: bridge

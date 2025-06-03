@@ -17,6 +17,8 @@ mssqldb
 gitlab-ce-5.2
 nexus3
 oracledb19c
+oracledb12c
+osticket
 
 !db-samples/mongo-sample-dataset/script.sh
 !db-samples/mysql-sample-data/mysql-import-script.sh
